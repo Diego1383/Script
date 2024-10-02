@@ -25,7 +25,7 @@
             font-weight: bold;
             color: #333;
         }
-        input[type="text"], input[type="date"], textarea {
+        input[type="text"], input[type="date"], textarea, select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -53,7 +53,7 @@
 
 <div class="container">
     <h1>Historia Clínica</h1>
-    <form>
+    <form id="historia-clinica-form">
         <label for="nombre">Nombre del Paciente:</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -78,5 +78,28 @@
     </form>
 </div>
 
+<script>
+    function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search.substring(1);
+        const regex = /([^&=]+)=([^&]*)/g;
+        let m;
+        while (m = regex.exec(queryString)) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        }
+        return params;
+    }
+
+    window.onload = function() {
+        const params = getQueryParams();
+        document.getElementById('nombre').value = params.nombre || '';
+        document.getElementById('fecha').value = params.fecha || '';
+        document.getElementById('genero').value = params.genero || '';
+        document.getElementById('motivo').value = params.motivo || '';
+        document.getElementById('antecedentes').value = params.antecedentes || '';
+    };
+</script>
+
 </body>
 </html>
+
